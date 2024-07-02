@@ -4,7 +4,7 @@ import { AppBar, Container, Toolbar, Box, Typography } from '@mui/material';
 import saturn from '../src/assets/logo-oa.jpg';
 import { motion } from 'framer-motion';
 
-const menuItems = ['Sysengy', 'Rose Window', 'Symphony'];
+const menuItems = ['Syzygy', 'Rose Window', 'Q Symphony'];
 
 export default function Navbar() {
     const [open, setOpen] = useState(false);
