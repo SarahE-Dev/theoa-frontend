@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import { motion } from 'framer-motion'
-import { Button, FormControl, Input, TextField, Typography } from '@mui/material';
+import { Button, FormControl, Input, Snackbar, TextField, Typography, Alert } from '@mui/material';
 
 export default function ComingSoon() {
     const [email, setEmail] = useState('');
+    const [show, setShow] = useState(false)
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -25,8 +26,34 @@ export default function ComingSoon() {
       hidden: { opacity: 0, y: 50 },
       visible: { opacity: 1, y: 0 },
     };
+
+    const handleOpen = () => {
+        if(email !== ''){
+        setShow(true);
+        setEmail('');
+        }
+      }
+
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+    
+        setShow(false);
+      };
   
     return (
+        <>
+        <Snackbar open={show} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%', bgcolor: 'purple' }}
+        >
+            You've signed up successfully!
+        </Alert>
+      </Snackbar>
       <motion.div
         className="coming-soon-container"
         variants={containerVariants}
@@ -40,15 +67,16 @@ export default function ComingSoon() {
   
         <motion.form onSubmit={handleSubmit}>
             <motion.div style={{margin: '20px 0px'}} variants={itemVariants}>
-                <TextField size='small' label='Email' />
+                <TextField onChange={(e)=>setEmail(e.target.value)} value={email} size='small' label='Email' />
             </motion.div>
             <motion.div variants={itemVariants}>
-                <Button type="submit" variant='contained'>Sign up</Button>
+                <Button onClick={handleOpen} type="submit" variant='contained'>Sign up</Button>
             </motion.div>
         </motion.form>
   
         {/* Cool Animation Placeholder */}
         <motion.div className="cool-animation" animate={{ rotate: 360 }} transition={{ duration: 5, loop: Infinity }}></motion.div>
       </motion.div>
+      </>
     );
 }
