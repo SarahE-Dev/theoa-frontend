@@ -8,8 +8,10 @@ export default function ComingSoon() {
 
     const handleSubmit = (e) => {
       e.preventDefault();
-      // Here you'd typically send the email to your backend or email service
-      console.log('Signed up:', email);
+      if(email !== ''){
+        setShow(true);
+        setEmail('');
+        }
     };
   
     const containerVariants = {
@@ -27,12 +29,7 @@ export default function ComingSoon() {
       visible: { opacity: 1, y: 0 },
     };
 
-    const handleOpen = () => {
-        if(email !== ''){
-        setShow(true);
-        setEmail('');
-        }
-      }
+    
 
     const handleClose = (event, reason) => {
         if (reason === 'clickaway') {
@@ -67,10 +64,10 @@ export default function ComingSoon() {
   
         <motion.form onSubmit={handleSubmit}>
             <motion.div style={{margin: '20px 0px'}} variants={itemVariants}>
-                <TextField onChange={(e)=>setEmail(e.target.value)} value={email} size='small' label='Email' />
+                <TextField required type='email' onChange={(e)=>setEmail(e.target.value)} value={email} size='small' label='Email' />
             </motion.div>
             <motion.div variants={itemVariants}>
-                <Button onClick={handleOpen} type="submit" variant='contained'>Sign up</Button>
+                <Button  type="submit" variant='contained'>Sign up</Button>
             </motion.div>
         </motion.form>
   
