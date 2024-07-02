@@ -1,14 +1,20 @@
 import React, {useState} from 'react'
 import { motion } from 'framer-motion'
 import { Button, FormControl, Input, Snackbar, TextField, Typography, Alert } from '@mui/material';
+import emailjs from '@emailjs/browser'
+
+const SERVICE_ID='service_8yvx4g4'
+const TEMPLATE_ID='template_69qjizr'
+const USER_ID='79gm72lYMHKoKTF0-'
 
 export default function ComingSoon() {
     const [email, setEmail] = useState('');
     const [show, setShow] = useState(false)
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
       if(email !== ''){
+        await emailjs.send(SERVICE_ID, TEMPLATE_ID, {email}, USER_ID)
         setShow(true);
         setEmail('');
         }
@@ -57,10 +63,10 @@ export default function ComingSoon() {
         initial="hidden"
         animate="visible"
       >
-        <motion.h1 variants={itemVariants}><Typography variant='h1'>Coming Soon</Typography></motion.h1>
-        <motion.p variants={itemVariants}>
+        <motion.div variants={itemVariants}><Typography variant='h1'>Coming Soon</Typography></motion.div>
+        <motion.div variants={itemVariants}>
           <Typography variant='h6'>Sign up to get notified when we launch</Typography>
-        </motion.p>
+        </motion.div>
   
         <motion.form onSubmit={handleSubmit}>
             <motion.div style={{margin: '20px 0px'}} variants={itemVariants}>
